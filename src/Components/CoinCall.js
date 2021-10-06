@@ -5,6 +5,7 @@ import './CoinCall.css'
 const CoinCall = () => {
     const [score, setScore] = useState(0);
     const [coin, setCoin] = useState("heads");
+    const [message, setMessage] = useState("Pick a side");
 
     const GenerateRandomNumber = () => {
         const randomNum = Math.floor(Math.random() * 100) + 1;
@@ -13,12 +14,12 @@ const CoinCall = () => {
         if (randomNum >= 1 && randomNum <= 50)
         {
             setCoin("heads");
-            console.log(`Coin is ${coin}`);
+            setMessage(`Coin is ${coin}`);
         }
         else 
         {
             setCoin("tails");
-            console.log(`Coin is ${coin}`);
+            setMessage(`Coin is ${coin}`);
         }
     }
 
@@ -49,7 +50,7 @@ const CoinCall = () => {
     return (
         <div>
             <h2>Score: {score}</h2>
-            
+            <h3>{message}</h3>
             <button onClick={callHeadsHandler}>HEADS</button>
             <button onClick={callTailsHandler}>TAILS</button>
         </div>
