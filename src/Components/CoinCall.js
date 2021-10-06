@@ -2,55 +2,60 @@ import { useState } from "react"
 
 import './CoinCall.css'
 
+//images
+import heads from "../Images/heads.png";
+import tails from "../Images/tails.png";
+
 const CoinCall = () => {
     const [score, setScore] = useState(0);
-    const [coin, setCoin] = useState("heads");
-    const [message, setMessage] = useState("Pick a side");
+    const [showHeads, setShowHeads] = useState(false);
+    const [showTails, setShowTails] = useState(false);
 
-    const GenerateRandomNumber = () => {
-        const randomNum = Math.floor(Math.random() * 100) + 1;
-        console.log('Random number generated: ' + randomNum);
+    const HeadsOrTails = () => {
+        let randomNum = Math.floor(Math.random() * 100) + 1;
 
         if (randomNum >= 1 && randomNum <= 50)
         {
-            setCoin("heads");
-            setMessage(`Coin is ${coin}`);
+            console.log(`line 19: rng: ${randomNum}`);
+            setShowHeads(true);
+            setShowTails(false);
+            return "heads";            
         }
         else 
         {
-            setCoin("tails");
-            setMessage(`Coin is ${coin}`);
+            console.log(`line 26: rng: ${randomNum}`);
+            setShowTails(true);
+            setShowHeads(false);
+            return "tails";
         }
     }
 
     const callHeadsHandler = () => {
-        GenerateRandomNumber();
-        if (coin === "heads")
-        {
+        console.log(`You selected heads`);
+        if (HeadsOrTails() === "heads"){
             setScore(prevScore => prevScore + 1);
         }
-        else 
-        {
+        else {
             setScore(0);
         }
     }
     
     const callTailsHandler = () => {
-        GenerateRandomNumber();
-        if (coin === "tails")
-        {
+        console.log(`You selected tails`);
+        if (HeadsOrTails() === "tails") {
             setScore(prevScore => prevScore + 1);
         }
-        else 
-        {
+        else {
             setScore(0);
         }
     }
 
     return (
         <div>
+            { showHeads ? <img src={heads} alt="" /> : null }
+            { showTails ? <img src={tails} alt="" /> : null }
             <h2>Score: {score}</h2>
-            <h3>{message}</h3>
+            <h3>Pick a side</h3>
             <button onClick={callHeadsHandler}>HEADS</button>
             <button onClick={callTailsHandler}>TAILS</button>
         </div>
